@@ -1,0 +1,27 @@
+@startuml slide function
+!function $func_double($a)
+!return $a + $a
+!endfunction
+
+!function $func_x6($a)
+!return 6*$a 
+!endfunction
+
+!function $concat($a, $b)
+!return "Bob --> Alice : " + "Concatenation via concat: " + $a + $b
+!endfunction
+
+!$arg_a = 2
+!$arg_b = 5
+!$arg_sum = $arg_a + $arg_b
+
+Alice -> Bob : The double if $arg a is $func double($arg a)
+Alice -> Bob : $func double("\nThis work also for strings.")
+Alice -> Bob : $arg a * 6 = $func_x6($arg_a) and Arg_sum = $arg_sum
+$concat($arg a, $arg b)
+!if ($arg a == 2) && ($func_x6($arg a) >= 12)
+    Alice -> Bob : arg_a = $arg_a, func_x6(arg_a) = $func_x6($arg_a)
+!else
+    Alice -> Bob : ERROR!
+!endif
+@enduml

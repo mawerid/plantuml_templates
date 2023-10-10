@@ -1,0 +1,42 @@
+@startuml upload file
+!include https://raw.githubusercontent.com/NEKharichkin/analyst-boost/main/PlantUML/procedures_library.puml
+
+' Function acts as a global parameter of root URL address with icons
+!function $ICONURL()
+!return "<img:https://raw.githubusercontent.com/Roemer/plantuml-office/master/office2014"
+!endfunction
+
+' Another way to define exact URL to
+!function $participant_icon($alias)
+!return $ICONURL() + "/Devices/cell_phone_generic.png>\n" + $alias
+!endfunction
+
+box Net segment Public #HoneyDew
+    actor User as user order 10
+    participant "$participant_icon(Mobile)" as client order 20
+end box
+box Net segment A #LightYellow
+    participant "$ICONURL()/Servers/server_generic.png>\n Server" as server order 30
+end box
+box Net segment B #LightCyan
+    participant "$ICONURL()/Servers/file_server.png>\n File Server" as fs order 40
+    participant "$ICONURL()/Security/federation_trust.png>\n Antivirus" as av order 40
+    participant "$ICONURL()/Servers/sql_server.png>\n Data Base" as db order 60 
+end box
+
+title
+    Upload file and
+    check via Antivirus
+end title
+hide footbox
+== User has chosen file to upload ==
+
+!$msg = "file"
+%invoke_procedure("$proxy", req($msg), "user, client, server, fs, av, fs")
+av -> av: Check $msg
+note right #HoneyDew: takes up\nto 30s
+av -> fs: $msg approved
+fs -> db: Save $msg
+!$msg = $link + " link"
+%invoke_procedure("$proxy_response", resp($msg), "db, fs, server, client, user")
+@enduml

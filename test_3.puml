@@ -1,0 +1,45 @@
+@startuml styles
+skinparam {
+    'monochrome true
+    'actorStyle awesome
+    BackgroundColor White
+    BoxPadding 10
+    RoundCorner 10
+    MaxMessageSize 300
+    DatabaseBackgroundColor Wheat
+    DatabaseBorderColor IndianRed
+    DatabaseBorderThickness 2
+    DatabaseFontColor Black
+    QueueBackgroundColor Wheat
+    QueueBorderColor IndianRed
+    QueueBorderThickness 2
+    QueueFontColor Black
+    QueueFontSize 14
+}
+skinparam note {
+    BackgroundColor BlanchedAlmond
+    BorderColor SAndyBrown
+}
+
+hide footbox
+autonumber 45 5 "<font color=red><b>Message 0  "
+title Your diagram title header
+
+box Net segment Public
+    actor Aaaactor as act
+end box
+box Net segment A
+    participant "  Component__" as a 
+    database Daatabase as db 
+end box 
+box Net segment B 
+    queue "Brooker" as b 
+end box 
+
+act -> a: Hi there
+group #f0ffff Custom group name 
+    a -> b: request many parameters
+    return response with response code
+    note left: aaa
+end
+@enduml

@@ -1,0 +1,32 @@
+@startuml include_aggreagate
+skinparam MaxMessageSize 300
+autonumber
+
+!function $BASEURL($filename)
+!return "https://raw.githubusercontent.com/NEKharichkin/analyst-boost/main/PlantUML/" + $filename 
+!endfunction
+
+A-[#Green]>B: Text before inclusion
+A<-[#Green]-B: Max Message Size = 300
+==== <color #green>SImple //!include//</color> ==
+!include https://raw.githubusercontent.com/NEKharichkin/analyst-boost/main/PlantUML/include_part_a.puml 
+
+==== <color #green>//!include// inside Function</color> ==
+!include $BASEURL(include_part_b.puml)
+
+==== <color #green>Procedure //%loadJSON//</color> ==
+!$link = $BASEURL(json_example_short.json)
+!$my_json = %loadJSON($link)
+
+A-[#green]>B: Text after inclusion. Send message with json as a note
+hnote across #White
+    {{json
+        $my_json
+    }}
+
+<code>
+$my_json
+</code>
+end note
+
+@enduml
